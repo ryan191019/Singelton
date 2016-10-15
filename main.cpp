@@ -2,7 +2,7 @@
 
 using namespace std;
 
-
+#if 0
 class Singelton {
 private:
     Singelton()
@@ -23,16 +23,41 @@ public:
            delete m_instance;
            m_instance = NULL;
         }
-
-    }
     }
 private:
     static Singelton *m_instance;
 
 };
 Singelton * Singelton::m_instance = NULL;
+#endif // 0
+class Singelton {
+private:
+    Singelton()
+    {
+        cout<<"Singelton 构造函数执行..."<<endl;
+    }
+public:
+    static Singelton *getInstance()
+    {
+        return m_instance;
+    }
+     static void freeInstance()
+    {
+        if (m_instance != NULL) {
+           delete m_instance;
+           m_instance = NULL;
+        }
+    }
+private:
+    static Singelton *m_instance;
+
+};
+Singelton * Singelton::m_instance = new Singelton;
+
 int main()
 {
+
+    cout<<"start...."<<endl;
     Singelton * p1 = NULL;
     Singelton * p2 = NULL;
 
@@ -46,6 +71,5 @@ int main()
 
     Singelton::freeInstance();
 
-    cout << "Hello world!" << endl;
     return 0;
 }
